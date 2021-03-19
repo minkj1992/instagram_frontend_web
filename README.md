@@ -1,5 +1,10 @@
 # Instagram Frontend Web
 
+-   [ ] Router
+-   [ ] Auth
+-   [ ] Arch
+-   [ ] Styles
+
 ## setup
 
 ```bash
@@ -17,4 +22,13 @@ $ npm install --save @fortawesome/free-brands-svg-icons
 
 $ npm i --save -D @types/react-dom @types/styled-components
 
+
+
+$ yarn add eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-react --dev
+
+$ yarn add prettier eslint-config-prettier eslint-plugin-prettier --dev
 ```
+
+## ref
+
+-   [react ts best practice setup](https://www.sitepoint.com/react-with-typescript-best-practices/)
