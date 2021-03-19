@@ -1,5 +1,5 @@
 # Instagram Frontend
 
-```
-npx create-react-app instagram_frontend --template typescript
+```bash
+$ npx create-react-app instagram_frontend --template typescript
 ```
