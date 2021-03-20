@@ -1,6 +1,6 @@
 # Instagram Frontend Web
 
--   [ ] Router
+-   [x] Router
 -   [ ] Auth
 -   [ ] Arch
 -   [ ] Styles
