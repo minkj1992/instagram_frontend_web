@@ -4,16 +4,18 @@ import Home from './screens/Home';
 import { useState } from 'react';
 import Login from './screens/Login';
 import NotFound from './screens/NotFound';
+import { useReactiveVar } from '@apollo/client';
+import { isLoggedInVar } from './apollo';
 
 const App: React.FC = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const isLoggedIn = useReactiveVar(isLoggedInVar); // listening this variable
 
     return (
         <div>
             <Router>
                 <Switch>
                     <Route path="/" exact>
-                        {isLoggedIn ? <Home setIsLoggedIn={setIsLoggedIn} /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+                        {isLoggedIn ? <Home /> : <Login />}
                     </Route>
                     <Route>
                         {/* <Redirect to="/"> */}

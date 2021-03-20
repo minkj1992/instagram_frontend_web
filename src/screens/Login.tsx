@@ -1,14 +1,11 @@
 import React from 'react';
+import { isLoggedInVar } from '../apollo';
 
-export type Props = {
-    setIsLoggedIn: (isLoggedIn: boolean) => void;
-};
-
-const Login: React.FC<Props> = ({ setIsLoggedIn }) => {
+const Login: React.FC = () => {
     return (
         <>
             <h1>Login</h1>
-            <button onClick={() => setIsLoggedIn(true)}>Log in</button>
+            <button onClick={() => isLoggedInVar(true)}>Log in</button>
         </>
     );
 };

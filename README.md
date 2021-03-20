@@ -1,9 +1,11 @@
 # Instagram Frontend Web
 
 -   [x] Router
--   [ ] Auth
--   [ ] Arch
+-   [x] Reactive Variables
+-   [x] Auth
+-   [x] Architecture
 -   [ ] Styles
+-   [ ] Login
 
 ## setup
 
