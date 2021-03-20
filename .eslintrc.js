@@ -13,6 +13,7 @@ module.exports = {
             jsx: true, // Allows for the parsing of JSX
         },
     },
+    plugins: ['prettier'],
     rules: {
         'react/prop-types': 'off',
         // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
