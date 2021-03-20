@@ -1,5 +1,16 @@
 import React from 'react';
 
-const Login: React.FC = () => <h1>Login</h1>;
+export type Props = {
+    setIsLoggedIn: (isLoggedIn: boolean) => void;
+};
+
+const Login: React.FC<Props> = ({ setIsLoggedIn }) => {
+    return (
+        <>
+            <h1>Login</h1>
+            <button onClick={() => setIsLoggedIn(true)}>Log in</button>
+        </>
+    );
+};
 
 export default Login;
