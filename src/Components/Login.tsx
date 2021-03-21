@@ -1,7 +1,6 @@
 import { faFacebookSquare, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 import routes from '../routes';
@@ -13,11 +12,6 @@ import Input from './Auth/Input';
 import Separator from './Auth/Separator';
 import Button from './Auth/Button';
 
-interface IForm {
-    username: string;
-    password: string;
-}
-
 const FacebookLogin = styled.div`
     color: #385285;
     span {
@@ -27,24 +21,37 @@ const FacebookLogin = styled.div`
 `;
 
 const Login: React.FC = () => {
-    const { handleSubmit, getValues, setValue } = useForm<IForm>();
-
-    const onValid = () => {
-        const { username, password } = getValues();
-        console.log(username, password);
-        setValue('username', username);
-        setValue('password', password);
+    const [username, setUsername] = useState('');
+    const [usernameErr, setUsernameErr] = useState('');
+    const onUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value: username } = e.target;
+        setUsername(username);
     };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (username === '') {
+            setUsernameErr('Username is empty now');
+        }
+
+        if (username.length < 10) {
+            setUsernameErr('Username is too short');
+        }
+        // onSubmit(form);
+        setUsername(''); // 초기화
+    };
+
     return (
         <AuthContainer>
             <FormBox>
                 <div>
                     <FontAwesomeIcon icon={faInstagram} size="3x" />
                 </div>
-                <form onSubmit={handleSubmit(onValid)}>
-                    <Input name="username" type="text" placeholder="Username" />
+                <form onSubmit={handleSubmit}>
+                    <Input onChange={onUsernameChange} value={username} type="text" placeholder="Username" />
+                    {usernameErr}
                     <Input name="password" type="password" placeholder="Password" />
-                    <Button type="submit" value="Log in" />
+                    <Button type="submit" value="Log in" disabled={username === '' || username.length < 10} />
                 </form>
                 <Separator value="OR" />
                 <FacebookLogin>
