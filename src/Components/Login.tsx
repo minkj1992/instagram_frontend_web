@@ -12,6 +12,7 @@ import FormBox from './Auth/FormBox';
 import Input from './Auth/Input';
 import Separator from './Auth/Separator';
 import Button from './Auth/Button';
+import { useForm } from 'react-hook-form';
 
 const FacebookLogin = styled.div`
     color: #385285;
@@ -21,7 +22,21 @@ const FacebookLogin = styled.div`
     }
 `;
 
+interface LoginForm {
+    username: string;
+    password: string;
+}
+
 const Login: React.FC = () => {
+    const { register, handleSubmit } = useForm<LoginForm>();
+
+    const onSubmitValid = (data: any) => {
+        console.log(data);
+    };
+    const onSubmitInvalid = (data: any) => {
+        console.log(data);
+    };
+
     return (
         <AuthContainer>
             <PageTitle title="Login" />
@@ -29,9 +44,27 @@ const Login: React.FC = () => {
                 <div>
                     <FontAwesomeIcon icon={faInstagram} size="3x" />
                 </div>
-                <form>
-                    <Input type="text" placeholder="Username" />
-                    <Input name="password" type="password" placeholder="Password" />
+                <form onSubmit={handleSubmit(onSubmitValid, onSubmitInvalid)}>
+                    <Input
+                        ref={register({
+                            required: 'Username is required',
+                            minLength: 5,
+                            validate: async (username) => {
+                                // api check
+                                const userId = await 'minkj1992';
+                                return username === userId;
+                            },
+                        })}
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                    />
+                    <Input
+                        ref={register({ required: 'Password is required' })}
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                    />
                     <Button type="submit" value="Log in" />
                 </form>
                 <Separator value="OR" />
