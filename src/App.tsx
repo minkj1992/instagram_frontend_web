@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useReactiveVar } from '@apollo/client';
 import { ThemeProvider } from 'styled-components';
 
-import Home from './Components/Home';
-import Login from './Components/Login';
-import SignUp from './Components/SignUp';
-import NotFound from './Components/NotFound';
+import Home from './components/Home';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+import NotFound from './components/NotFound';
 
 import GlobalStyles from './styles/GlobalStyles';
 import { lightTheme, darkTheme } from './styles/Theme';
