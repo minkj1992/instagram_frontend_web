@@ -11,10 +11,10 @@ import BottomBox from './Auth/BottomBox';
 import FormBox from './Auth/FormBox';
 import Input from './Auth/Input';
 import Separator from './Auth/Separator';
-import SubmitButton from './Auth/SubmitButton';
+import Button from './Auth/Button';
 
 interface IForm {
-    name: string;
+    username: string;
     password: string;
 }
 
@@ -30,9 +30,9 @@ const Login: React.FC = () => {
     const { handleSubmit, getValues, setValue } = useForm<IForm>();
 
     const onValid = () => {
-        const { name, password } = getValues();
-        console.log(name, password);
-        setValue('name', name);
+        const { username, password } = getValues();
+        console.log(username, password);
+        setValue('username', username);
         setValue('password', password);
     };
     return (
@@ -42,9 +42,9 @@ const Login: React.FC = () => {
                     <FontAwesomeIcon icon={faInstagram} size="3x" />
                 </div>
                 <form onSubmit={handleSubmit(onValid)}>
-                    <Input name="name" type="text" placeholder="Username" />
+                    <Input name="username" type="text" placeholder="Username" />
                     <Input name="password" type="password" placeholder="Password" />
-                    <SubmitButton type="submit" value="Log in" />
+                    <Button type="submit" value="Log in" />
                 </form>
                 <Separator value="OR" />
                 <FacebookLogin>

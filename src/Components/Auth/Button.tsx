@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const Button = styled.input`
@@ -13,13 +12,4 @@ const Button = styled.input`
     width: 100%;
 `;
 
-type Props = {
-    type: string;
-    value: string;
-};
-
-const SubmitButton: React.FC<Props> = (props) => {
-    return <Button {...props} />;
-};
-
-export default SubmitButton;
+export default Button;

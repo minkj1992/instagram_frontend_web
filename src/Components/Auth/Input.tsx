@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const SInput = styled.input`
+const Input = styled.input`
     margin-top: 5px;
     width: 100%;
     border-radius: 3px;
@@ -23,13 +22,5 @@ const SInput = styled.input`
         font-size: 12px;
     }
 `;
-
-type Props = {
-    name: string;
-    type: string;
-    placeholder?: string;
-};
-
-const Input: React.FC<Props> = (props) => <SInput {...props} />;
 
 export default Input;

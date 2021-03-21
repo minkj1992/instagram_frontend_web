@@ -14,8 +14,8 @@ import { isDarkModeVar, isLoggedInVar } from './apollo';
 import routes from './routes';
 
 const App: React.FC = () => {
-    const isLoggedIn = useReactiveVar(isLoggedInVar); // listening this variable
-    const isDarkMode = useReactiveVar(isDarkModeVar); // listening this variable
+    const isLoggedIn = useReactiveVar(isLoggedInVar);
+    const isDarkMode = useReactiveVar(isDarkModeVar);
 
     return (
         <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
