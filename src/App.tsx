@@ -12,32 +12,35 @@ import GlobalStyles from './styles/GlobalStyles';
 import { lightTheme, darkTheme } from './styles/Theme';
 import { isDarkModeVar, isLoggedInVar } from './apollo';
 import routes from './routes';
+import { HelmetProvider } from 'react-helmet-async';
 
 const App: React.FC = () => {
     const isLoggedIn = useReactiveVar(isLoggedInVar);
     const isDarkMode = useReactiveVar(isDarkModeVar);
 
     return (
-        <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-            <GlobalStyles />
-            <>
-                <Router>
-                    <Switch>
-                        <Route path={routes.home} exact>
-                            {isLoggedIn ? <Home /> : <Login />}
-                        </Route>
-                        {!isLoggedIn ? (
-                            <Route path={routes.signUp}>
-                                <SignUp />
+        <HelmetProvider>
+            <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+                <GlobalStyles />
+                <>
+                    <Router>
+                        <Switch>
+                            <Route path={routes.home} exact>
+                                {isLoggedIn ? <Home /> : <Login />}
                             </Route>
-                        ) : null}
-                        <Route>
-                            <NotFound />
-                        </Route>
-                    </Switch>
-                </Router>
-            </>
-        </ThemeProvider>
+                            {!isLoggedIn ? (
+                                <Route path={routes.signUp}>
+                                    <SignUp />
+                                </Route>
+                            ) : null}
+                            <Route>
+                                <NotFound />
+                            </Route>
+                        </Switch>
+                    </Router>
+                </>
+            </ThemeProvider>
+        </HelmetProvider>
     );
 };
 

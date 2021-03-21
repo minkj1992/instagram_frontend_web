@@ -1,9 +1,10 @@
 import { faFacebookSquare, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 import routes from '../routes';
+import PageTitle from './_common/PageTitle';
 
 import AuthContainer from './Auth/AuthContainer';
 import BottomBox from './Auth/BottomBox';
@@ -21,37 +22,17 @@ const FacebookLogin = styled.div`
 `;
 
 const Login: React.FC = () => {
-    const [username, setUsername] = useState('');
-    const [usernameErr, setUsernameErr] = useState('');
-    const onUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value: username } = e.target;
-        setUsername(username);
-    };
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (username === '') {
-            setUsernameErr('Username is empty now');
-        }
-
-        if (username.length < 10) {
-            setUsernameErr('Username is too short');
-        }
-        // onSubmit(form);
-        setUsername(''); // 초기화
-    };
-
     return (
         <AuthContainer>
+            <PageTitle title="Login" />
             <FormBox>
                 <div>
                     <FontAwesomeIcon icon={faInstagram} size="3x" />
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <Input onChange={onUsernameChange} value={username} type="text" placeholder="Username" />
-                    {usernameErr}
+                <form>
+                    <Input type="text" placeholder="Username" />
                     <Input name="password" type="password" placeholder="Password" />
-                    <Button type="submit" value="Log in" disabled={username === '' || username.length < 10} />
+                    <Button type="submit" value="Log in" />
                 </form>
                 <Separator value="OR" />
                 <FacebookLogin>

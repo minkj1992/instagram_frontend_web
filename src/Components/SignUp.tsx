@@ -12,6 +12,7 @@ import Separator from './Auth/Separator';
 import Button from './Auth/Button';
 import styled from 'styled-components';
 import FatLink from './_common/FatLink';
+import PageTitle from './_common/PageTitle';
 
 const HeaderContainer = styled.div`
     display: flex;
@@ -27,6 +28,7 @@ const SubTitle = styled(FatLink)`
 const SignUp: React.FC = () => {
     return (
         <AuthContainer>
+            <PageTitle title="Signup" />
             <FormBox>
                 <HeaderContainer>
                     <FontAwesomeIcon icon={faInstagram} size="3x" />
