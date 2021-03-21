@@ -3,7 +3,7 @@ import type { DefaultTheme } from 'styled-components';
 export const lightTheme: DefaultTheme = {
     accentColor: '#0095f6',
     lightGreyColor: 'rgb(219,219,219)',
-    boxBorder: '1px solid #e6e6e6',
+    borderColor: '#e6e6e6',
     bgColor: '#FAFAFA',
     blackColor: '#262626',
     blueColor: '#3897f0',
@@ -12,7 +12,7 @@ export const lightTheme: DefaultTheme = {
 export const darkTheme: DefaultTheme = {
     accentColor: '#0095f6',
     lightGreyColor: '#c7c7c7',
-    boxBorder: '1px solid #e6e6e6',
+    borderColor: '#e6e6e6',
     bgColor: '#FAFAFA',
     blackColor: '#262626',
     blueColor: '#3897f0',
