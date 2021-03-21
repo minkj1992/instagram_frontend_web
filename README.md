@@ -31,6 +31,12 @@ $ yarn add eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin esl
 $ yarn add prettier eslint-config-prettier eslint-plugin-prettier --dev
 ```
 
+## ts setup
+
+```
+npm i @types/styled-components
+```
+
 ## ref
 
 -   [react ts best practice setup](https://www.sitepoint.com/react-with-typescript-best-practices/)
