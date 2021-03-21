@@ -4,6 +4,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import routes from '../routes';
 
 interface IForm {
     name: string;
@@ -153,7 +154,7 @@ const Login: React.FC = () => {
                 </TopBox>
                 <BottomBox>
                     <span>Don&apos;t have an account?</span>
-                    <Link to="/signup">Sign up</Link>
+                    <Link to={routes.signUp}>Sign up</Link>
                 </BottomBox>
             </Wrapper>
         </Container>

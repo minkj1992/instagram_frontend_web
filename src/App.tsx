@@ -11,6 +11,7 @@ import NotFound from './Components/NotFound';
 import GlobalStyles from './styles/GlobalStyles';
 import { lightTheme, darkTheme } from './styles/Theme';
 import { isDarkModeVar, isLoggedInVar } from './apollo';
+import routes from './routes';
 
 const App: React.FC = () => {
     const isLoggedIn = useReactiveVar(isLoggedInVar); // listening this variable
@@ -22,11 +23,11 @@ const App: React.FC = () => {
             <>
                 <Router>
                     <Switch>
-                        <Route path="/" exact>
+                        <Route path={routes.home} exact>
                             {isLoggedIn ? <Home /> : <Login />}
                         </Route>
                         {!isLoggedIn ? (
-                            <Route path="signup">
+                            <Route path={routes.signUp}>
                                 <SignUp />
                             </Route>
                         ) : null}
