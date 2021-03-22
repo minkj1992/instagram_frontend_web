@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { useReactiveVar } from '@apollo/client';
+import { ApolloClient, useReactiveVar } from '@apollo/client';
 import { ThemeProvider } from 'styled-components';
 
 import Home from './components/Home';
@@ -10,7 +10,7 @@ import NotFound from './components/NotFound';
 
 import GlobalStyles from './styles/GlobalStyles';
 import { lightTheme, darkTheme } from './styles/Theme';
-import { isDarkModeVar, isLoggedInVar } from './apollo';
+import { client, isDarkModeVar, isLoggedInVar } from './apollo';
 import routes from './routes';
 import { HelmetProvider } from 'react-helmet-async';
 
@@ -19,28 +19,30 @@ const App: React.FC = () => {
     const isDarkMode = useReactiveVar(isDarkModeVar);
 
     return (
-        <HelmetProvider>
-            <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-                <GlobalStyles />
-                <>
-                    <Router>
-                        <Switch>
-                            <Route path={routes.home} exact>
-                                {isLoggedIn ? <Home /> : <Login />}
-                            </Route>
-                            {!isLoggedIn ? (
-                                <Route path={routes.signUp}>
-                                    <SignUp />
+        <ApolloClient client={client}>
+            <HelmetProvider>
+                <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+                    <GlobalStyles />
+                    <>
+                        <Router>
+                            <Switch>
+                                <Route path={routes.home} exact>
+                                    {isLoggedIn ? <Home /> : <Login />}
                                 </Route>
-                            ) : null}
-                            <Route>
-                                <NotFound />
-                            </Route>
-                        </Switch>
-                    </Router>
-                </>
-            </ThemeProvider>
-        </HelmetProvider>
+                                {!isLoggedIn ? (
+                                    <Route path={routes.signUp}>
+                                        <SignUp />
+                                    </Route>
+                                ) : null}
+                                <Route>
+                                    <NotFound />
+                                </Route>
+                            </Switch>
+                        </Router>
+                    </>
+                </ThemeProvider>
+            </HelmetProvider>
+        </ApolloClient>
     );
 };
 
