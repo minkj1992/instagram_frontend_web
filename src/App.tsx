@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ApolloClient, useReactiveVar } from '@apollo/client';
+import { useReactiveVar, ApolloProvider } from '@apollo/client';
+
 import { ThemeProvider } from 'styled-components';
 
 import Home from './components/Home';
@@ -19,7 +20,7 @@ const App: React.FC = () => {
     const isDarkMode = useReactiveVar(isDarkModeVar);
 
     return (
-        <ApolloClient client={client}>
+        <ApolloProvider client={client}>
             <HelmetProvider>
                 <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
                     <GlobalStyles />
@@ -42,7 +43,7 @@ const App: React.FC = () => {
                     </>
                 </ThemeProvider>
             </HelmetProvider>
-        </ApolloClient>
+        </ApolloProvider>
     );
 };
 
