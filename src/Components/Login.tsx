@@ -42,7 +42,7 @@ interface LoginForm {
 }
 
 const Login: React.FC = () => {
-    const { register, handleSubmit, errors, getValues, formState, setError } = useForm<LoginForm>({
+    const { register, handleSubmit, errors, getValues, formState, setError, clearErrors } = useForm<LoginForm>({
         mode: 'onChange',
     });
 
@@ -66,6 +66,10 @@ const Login: React.FC = () => {
         onCompleted,
     });
 
+    const clearLoginError = () => {
+        clearErrors('loginResult');
+    };
+
     return (
         <AuthContainer>
             <PageTitle title="Login" />
@@ -87,6 +91,7 @@ const Login: React.FC = () => {
                             //     return username === userId;
                             // },
                         })}
+                        onChange={clearLoginError}
                         name="username"
                         type="text"
                         placeholder="Username"
@@ -96,6 +101,7 @@ const Login: React.FC = () => {
 
                     <Input
                         ref={register({ required: 'Password is required' })}
+                        onChange={clearLoginError}
                         name="password"
                         type="password"
                         placeholder="Password"
