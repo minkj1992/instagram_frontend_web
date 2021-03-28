@@ -16,6 +16,7 @@ import Button from './Auth/Button';
 import { useForm } from 'react-hook-form';
 import FormError from './_common/FormError';
 import { login, loginVariables } from '../__generated__/login';
+import { logUserIn } from '../apollo';
 
 const FacebookLogin = styled.div`
     color: #385285;
@@ -59,7 +60,13 @@ const Login: React.FC = () => {
             login: { ok, error, token },
         } = data;
 
-        if (!ok) setError('loginResult', { message: error });
+        if (!ok) {
+            return setError('loginResult', { message: error });
+        }
+
+        if (token) {
+            logUserIn(token);
+        }
     };
 
     const [loginMutation, { loading }] = useMutation<login, loginVariables>(LOGIN_MUTATION, {

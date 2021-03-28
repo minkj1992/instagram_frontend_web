@@ -1,11 +1,11 @@
 import React from 'react';
-import { isLoggedInVar } from '../apollo';
+import { logUserOut } from '../apollo';
 
 const Home: React.FC = () => {
     return (
         <>
-            <h1>Home</h1>
-            <button onClick={() => isLoggedInVar(false)}>Log out</button>
+            <h1>Welcome Login</h1>
+            <button onClick={() => logUserOut()}>Log out</button>
         </>
     );
 };
