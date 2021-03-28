@@ -1,7 +1,7 @@
 import { faFacebookSquare, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { gql } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 
 import styled from 'styled-components';
 import routes from '../routes';
@@ -15,6 +15,7 @@ import Separator from './Auth/Separator';
 import Button from './Auth/Button';
 import { useForm } from 'react-hook-form';
 import FormError from './_common/FormError';
+import { login, loginVariables } from '../__generated__/login';
 
 const FacebookLogin = styled.div`
     color: #385285;
@@ -37,16 +38,33 @@ export const LOGIN_MUTATION = gql`
 interface LoginForm {
     username: string;
     password: string;
+    loginResult: boolean;
 }
 
 const Login: React.FC = () => {
-    const { register, handleSubmit, errors, setError, formState } = useForm<LoginForm>({
+    const { register, handleSubmit, errors, getValues, formState, setError } = useForm<LoginForm>({
         mode: 'onChange',
     });
 
-    const onSubmitValid = (data: any) => {
-        console.log(data);
+    const onSubmitValid = (data) => {
+        if (loading) return;
+        const { username, password } = getValues();
+        loginMutation({
+            variables: { username, password },
+        });
     };
+
+    const onCompleted = (data) => {
+        const {
+            login: { ok, error, token },
+        } = data;
+
+        if (!ok) setError('loginResult', { message: error });
+    };
+
+    const [loginMutation, { loading }] = useMutation<login, loginVariables>(LOGIN_MUTATION, {
+        onCompleted,
+    });
 
     return (
         <AuthContainer>
@@ -63,11 +81,11 @@ const Login: React.FC = () => {
                                 value: 5,
                                 message: 'Username should be longer than 5 chars',
                             },
-                            validate: async (username) => {
-                                // TODO: api check
-                                const userId = await 'minkj1992';
-                                return username === userId;
-                            },
+                            // validate: async (username) => {
+                            //     // TODO: api check
+                            //     const userId = await 'minkj1992';
+                            //     return username === userId;
+                            // },
                         })}
                         name="username"
                         type="text"
@@ -84,7 +102,12 @@ const Login: React.FC = () => {
                         hasError={Boolean(errors?.password?.message)}
                     />
                     <FormError message={errors?.password?.message} />
-                    <Button type="submit" value="Log in" disabled={!formState.isValid} />
+                    <Button
+                        type="submit"
+                        value={loading ? 'Loading...' : 'Log in'}
+                        disabled={!formState.isValid || loading}
+                    />
+                    <FormError message={errors?.loginResult?.message} />
                 </form>
                 <Separator value="OR" />
                 <FacebookLogin>
