@@ -1,6 +1,7 @@
 import { faFacebookSquare, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { gql } from '@apollo/client';
 
 import styled from 'styled-components';
 import routes from '../routes';
@@ -20,6 +21,16 @@ const FacebookLogin = styled.div`
     span {
         margin-left: 10px;
         font-weight: 600;
+    }
+`;
+
+export const LOGIN_MUTATION = gql`
+    mutation login($username: String!, $password: String!) {
+        login(username: $username, password: $password) {
+            ok
+            token
+            error
+        }
     }
 `;
 

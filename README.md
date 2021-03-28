@@ -35,6 +35,7 @@ $ yarn add prettier eslint-config-prettier eslint-plugin-prettier --dev
 
 ```
 npm i @types/styled-components
+apollo client:codegen src/__generated__ --target=typescript --outputFlat
 ```
 
 ## ref
