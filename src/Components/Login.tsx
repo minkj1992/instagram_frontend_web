@@ -47,7 +47,7 @@ const Login: React.FC = () => {
         mode: 'onChange',
     });
 
-    const onSubmitValid = (data) => {
+    const onSubmitValid = () => {
         if (loading) return;
         const { username, password } = getValues();
         loginMutation({
