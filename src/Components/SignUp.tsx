@@ -16,6 +16,8 @@ import PageTitle from './_common/PageTitle';
 import { useForm } from 'react-hook-form';
 import { gql, useMutation } from '@apollo/client';
 import { createAccount, createAccountVariables } from '../__generated__/createAccount';
+import { useHistory } from 'react-router';
+import FormError from './_common/FormError';
 
 const HeaderContainer = styled.div`
     display: flex;
@@ -34,9 +36,10 @@ interface SignUpForm {
     username: string;
     password: string;
     email: string;
+    signUpResult: boolean;
 }
 
-export const SIGNUP_MUTATION = gql`
+export const CREATE_ACCOUNT_MUTATION = gql`
     mutation createAccount(
         $firstName: String!
         $lastName: String
@@ -52,59 +55,43 @@ export const SIGNUP_MUTATION = gql`
             email: $email
         ) {
             ok
-            user {
-                id
-                firstName
-                lastName
-                username
-                email
-                createdAt
-                updatedAt
-                bio
-                avatar
-                following {
-                    id
-                }
-                followers {
-                    id
-                }
-                totalFollowing
-                totalFollowers
-                isMe
-                isFollowing
-            }
             error
         }
     }
 `;
 
 const SignUp: React.FC = () => {
+    const history = useHistory();
     const { register, handleSubmit, errors, getValues, formState, setError, clearErrors } = useForm<SignUpForm>({
         mode: 'onChange',
     });
-
     const onSubmitValid = () => {
+        console.log(getValues());
+
         const { firstName, lastName, username, email, password } = getValues();
-        signUpMutation({
+        createAccount({
             variables: { firstName, lastName, username, email, password },
         });
     };
 
     const onCompleted = (data) => {
-        const { ok, error, user } = data;
+        const {
+            createAccount: { ok, error },
+        } = data;
 
         if (!ok) {
-            // return setError('loginResult', { message: error });
+            return setError('signUpResult', { message: error });
         }
-
-        if (user) {
-            // logUserIn(token);
-        }
+        history.push(routes.home);
     };
 
-    const [signUpMutation, { loading }] = useMutation<createAccount, createAccountVariables>(SIGNUP_MUTATION, {
+    const [createAccount, { loading }] = useMutation<createAccount, createAccountVariables>(CREATE_ACCOUNT_MUTATION, {
         onCompleted,
     });
+
+    const clearSignUpError = () => {
+        clearErrors('signUpResult');
+    };
 
     return (
         <AuthContainer>
@@ -121,36 +108,42 @@ const SignUp: React.FC = () => {
                         name="firstName"
                         type="text"
                         placeholder="Frist Name"
+                        onChange={clearSignUpError}
                     />
                     <Input
                         ref={register({ required: 'Last Name is required' })}
                         name="lastName"
                         type="text"
                         placeholder="Last Name"
+                        onChange={clearSignUpError}
                     />
                     <Input
                         ref={register({ required: 'Email is required' })}
                         name="email"
                         type="email"
                         placeholder="Email"
+                        onChange={clearSignUpError}
                     />
                     <Input
                         ref={register({ required: 'Username is required' })}
                         name="username"
                         type="text"
                         placeholder="Username"
+                        onChange={clearSignUpError}
                     />
                     <Input
                         ref={register({ required: 'Password is required' })}
                         name="password"
                         type="password"
                         placeholder="Password"
+                        onChange={clearSignUpError}
                     />
                     <Button
                         type="submit"
-                        // value={loading ? 'Loading...' : 'Sign up'}
-                        // disabled={!formState.isValid || loading}
+                        value={loading ? 'Loading...' : 'Sign up'}
+                        disabled={!formState.isValid || loading}
                     />
+                    <FormError message={errors?.signUpResult?.message} />
                 </form>
             </FormBox>
             <BottomBox cta="Have an account?" link={routes.home} linkText="Log in" />
