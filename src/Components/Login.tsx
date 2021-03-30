@@ -57,8 +57,8 @@ const Login: React.FC = () => {
     const { register, handleSubmit, errors, getValues, formState, setError, clearErrors } = useForm<LoginForm>({
         mode: 'onChange',
         defaultValues: {
-            username: location.state.username,
-            password: location.state.password,
+            username: location?.state?.username,
+            password: location?.state?.password,
         },
     });
 

@@ -7,7 +7,7 @@ export const logUserIn = (token) => {
     localStorage.setItem(_TOKEN_KEY, token);
     isLoggedInVar(true);
 };
-export const logUserOut = () => {
+export const clearStorage = () => {
     localStorage.removeItem(_TOKEN_KEY);
     isLoggedInVar(false);
 };
