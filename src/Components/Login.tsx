@@ -2,6 +2,9 @@ import { faFacebookSquare, faInstagram } from '@fortawesome/free-brands-svg-icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
+import { useForm } from 'react-hook-form';
+import { useLocation } from 'react-router';
+import { Location } from 'history';
 
 import styled from 'styled-components';
 import routes from '../routes';
@@ -13,10 +16,10 @@ import FormBox from './Auth/FormBox';
 import Input from './Auth/Input';
 import Separator from './Auth/Separator';
 import Button from './Auth/Button';
-import { useForm } from 'react-hook-form';
 import FormError from './_common/FormError';
 import { login, loginVariables } from '../__generated__/login';
 import { logUserIn } from '../apollo';
+import Notification from './_common/Notification';
 
 const FacebookLogin = styled.div`
     color: #385285;
@@ -41,10 +44,22 @@ interface LoginForm {
     password: string;
     loginResult: boolean;
 }
+type LocationState = {
+    from: Location;
+    message?: string;
+    username?: string;
+    password?: string;
+};
 
 const Login: React.FC = () => {
+    const location = useLocation<LocationState>();
+
     const { register, handleSubmit, errors, getValues, formState, setError, clearErrors } = useForm<LoginForm>({
         mode: 'onChange',
+        defaultValues: {
+            username: location.state.username,
+            password: location.state.password,
+        },
     });
 
     const onSubmitValid = () => {
@@ -63,7 +78,6 @@ const Login: React.FC = () => {
         if (!ok) {
             return setError('loginResult', { message: error });
         }
-
         if (token) {
             logUserIn(token);
         }
@@ -84,6 +98,7 @@ const Login: React.FC = () => {
                 <div>
                     <FontAwesomeIcon icon={faInstagram} size="3x" />
                 </div>
+                <Notification>{location?.state?.message}</Notification>
                 <form onSubmit={handleSubmit(onSubmitValid)}>
                     <Input
                         ref={register({

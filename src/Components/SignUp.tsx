@@ -66,8 +66,6 @@ const SignUp: React.FC = () => {
         mode: 'onChange',
     });
     const onSubmitValid = () => {
-        console.log(getValues());
-
         const { firstName, lastName, username, email, password } = getValues();
         createAccount({
             variables: { firstName, lastName, username, email, password },
@@ -75,6 +73,7 @@ const SignUp: React.FC = () => {
     };
 
     const onCompleted = (data) => {
+        const { username, password } = getValues();
         const {
             createAccount: { ok, error },
         } = data;
@@ -82,7 +81,7 @@ const SignUp: React.FC = () => {
         if (!ok) {
             return setError('signUpResult', { message: error });
         }
-        history.push(routes.home);
+        history.push(routes.home, { message: 'Account is created. Please log in.', username, password });
     };
 
     const [createAccount, { loading }] = useMutation<createAccount, createAccountVariables>(CREATE_ACCOUNT_MUTATION, {
