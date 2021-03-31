@@ -3,11 +3,13 @@ import 'styled-components';
 declare module 'styled-components' {
     export interface DefaultTheme {
         accentColor: string;
-        lightGreyColor: string;
-        borderColor: string;
         bgColor: string;
-        blackColor: string;
-        blueColor: string;
+        fontColor: string;
+        borderColor: string;
+        // lightGreyColor: string;
+
+        // blackColor: string;
+        // blueColor: string;
     }
 }
 

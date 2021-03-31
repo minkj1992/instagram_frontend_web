@@ -11,18 +11,18 @@ import NotFound from './components/NotFound';
 
 import GlobalStyles from './styles/GlobalStyles';
 import { lightTheme, darkTheme } from './styles/Theme';
-import { client, isDarkModeVar, isLoggedInVar } from './apollo';
+import { client, isLoggedInVar, isDarkModeVar } from './apollo';
 import routes from './routes';
 import { HelmetProvider } from 'react-helmet-async';
 
 const App: React.FC = () => {
     const isLoggedIn = useReactiveVar(isLoggedInVar);
-    const isDarkMode = useReactiveVar(isDarkModeVar);
+    const darkMode = useReactiveVar(isDarkModeVar);
 
     return (
         <ApolloProvider client={client}>
             <HelmetProvider>
-                <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+                <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
                     <GlobalStyles />
                     <>
                         <Router>

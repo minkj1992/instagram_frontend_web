@@ -11,7 +11,7 @@ const SSeparator = styled.div`
     div {
         width: 100%;
         height: 1px;
-        background-color: ${(props) => props.theme.lightGreyColor};
+        background-color: ${(props) => props.theme.borderColor};
     }
     span {
         margin: 0px 10px;

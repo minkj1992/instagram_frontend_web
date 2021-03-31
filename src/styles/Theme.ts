@@ -1,21 +1,19 @@
 import type { DefaultTheme } from 'styled-components';
 
 export const lightTheme: DefaultTheme = {
-    accentColor: '#0095f6',
-    lightGreyColor: 'rgb(219,219,219)',
-    borderColor: '#e6e6e6',
+    fontColor: 'rgb(38,38,38)',
     bgColor: '#FAFAFA',
-    blackColor: '#262626',
-    blueColor: '#3897f0',
+    accentColor: '#0095f6',
+    borderColor: 'rgb(219,219,219)',
+    // blackColor: '#262626',
+    // blueColor: '#3897f0',
 };
 
 export const darkTheme: DefaultTheme = {
+    fontColor: '#c7c7c7',
+    bgColor: '#2c2c2c',
     accentColor: '#0095f6',
-    lightGreyColor: '#c7c7c7',
-    borderColor: '#e6e6e6',
-    bgColor: '#FAFAFA',
-    blackColor: '#262626',
-    blueColor: '#3897f0',
+    borderColor: 'rgb(219,219,219)',
 };
 
 // const theme: DefaultTheme = {
